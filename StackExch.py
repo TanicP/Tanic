@@ -10,16 +10,13 @@ lines = 0
 error = False
 frame = pd.DataFrame()
 ser = pd.Series()
-url = url + '&page={0}' + '&pagesize={1}' + '&tagged={2}' 
-url = url.format(page, pagesize, tagged)
 while (lines <= linesQuan and has_more and not error):
-    #payload = {'page': page, 'pagesize': pagesize, 'tagged': tagged}
-    result =requests.get(url)#, params=payload)
+    payload = {'page': page, 'pagesize': pagesize, 'tagged': tagged}
+    result =requests.get(url, params=payload)
     if result.status_code == 200:
         for key in result.json().get('items'):
             if lines < linesQuan:
-                ser = pd.Series([key['title']])
-                frame = frame.append(ser, ignore_index=True)
+                frame = frame.append(pd.Series([key['title']]), ignore_index=True)
                 print(key['title'])
             lines = lines + 1
         has_more = result.json().get('has_more')               
