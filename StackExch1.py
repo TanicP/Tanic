@@ -13,7 +13,7 @@ ser = pd.Series()
 url = url + '&page={0}' + '&pagesize={1}' + '&tagged={2}' 
 url = url.format(page, pagesize, tagged)
 while (lines <= linesQuan and has_more and not error):
-    result =requests.get(url)
+    result = requests.get(url)
     if result.status_code == 200:
         for key in result.json().get('items'):
             if lines < linesQuan:
